@@ -49,6 +49,8 @@ Cypress.Commands.add('popup', () => {
   const popup = Cypress.$(state.popup.document)
   return cy.wrap(popup.contents().find('body'))
 })
+
+//Paypal Sandbox
 Cypress.Commands.add('paypalFlow', (email, password) => {
   // Enable popup capture
   cy.capturePopup()
@@ -83,17 +85,20 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
           .click({force:true})
       }
     })
-  cy
-    .popup()
-    .find('button#btnLogin')
-    .should('not.exist')
-  cy.wait(5000)
-  cy
-    .popup()
-    .find('button[data-testid=submit-button-initial]')
-    .should('exist')
-    .click({force:true})
 })
+Cypress.Commands.add('SubmitPaypalFlow', () => {
+  cy
+      .popup()
+      .find('button#btnLogin')
+      .should('not.exist')
+  cy
+      .popup()
+      .find('button[data-testid=submit-button-initial]')
+      .should('exist')
+      .click({force:true})
+})
+
+
 Cypress.Commands.add('paypalCreditCard', () => {
   const PaypalInfos = require('../fixtures/Credit card (PayPal).json');
   const dataAddress = require('../fixtures/Address.json');

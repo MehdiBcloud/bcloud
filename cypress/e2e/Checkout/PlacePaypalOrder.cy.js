@@ -61,6 +61,11 @@ describe('paypal order', () => {
         cy.paypalFlow(PaypalInfos.email,PaypalInfos.password)  
     })
 
+    it('Submit Payment',()=>{
+        cy.wait(5000)
+        cy.SubmitPaypalFlow() 
+    })
+
     it('Back Home',()=>{
         cy.wait(500)
         cy.contains('Votre commande a été confirmée.',{timeout:30000}).should('be.visible')
