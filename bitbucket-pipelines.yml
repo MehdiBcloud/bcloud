@@ -1,0 +1,20 @@
+image: node:latest
+pipelines:
+  default:
+  - step:
+      name: Paypal Credit Card
+      caches:
+        - npm
+        - cypress
+        - node
+      image: cypress/base:latest
+      script:
+        - npm ci
+        - npm run paypalcreditcard
+  artifacts:
+    - cypress/reports/**
+    - cypress/videos/**
+definitions:
+  caches:
+    npm: $HOME/.npm
+    cypress: $HOME/.cache/Cypress

@@ -1,0 +1,9 @@
+- Place transfer order
+- Place payzone order 
+- Place PayPal order
+- Apply user voucher and check amount after applying voucher on cart and checkout and also after payment.
+- Apply product voucher and check amount after applying voucher on cart and checkout and also after payment.
+- Application voucher produit
+- Participate on one session and check amount
+- Participate on session with others and check amount
+- Participate on session as gift and check amount

@@ -1,0 +1,41 @@
+{
+  "name": "cypress-git-integration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "opene2e": "cypress open",
+    "e2e": "cypress run --headless",
+    "jira:chrome": "cypress run --headless --browser chrome",
+    "paypalcreditcard": "cypress run --spec cypress/e2e/Checkout/PaypalCreditCard.cy.js",
+    "payzone": "cypress run --browser chrome --spec cypress/e2e/Checkout/Payzone.cy.js",
+    "placepaypalorder": "cypress run --browser chrome --spec cypress/e2e/Checkout/PlacePaypalOrder.cy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://rmehdi17@bitbucket.org/aboullait/cypress-git-integration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/aboullait/cypress-git-integration/issues"
+  },
+  "homepage": "https://bitbucket.org/aboullait/cypress-git-integration#readme",
+  "devDependencies": {
+    "cypress": "^10.10.0",
+    "cypress-grep": "^2.6.1",
+    "cypress-iframe": "^1.0.1",
+    "cypress-localstorage-commands": "^2.2.0",
+    "cypress-plugin-tab": "^1.0.5",
+    "playwright-webkit": "^1.27.1"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chrome": "^0.1.0",
+    "dotenv": "^16.0.1",
+    "echo": "^0.1.9",
+    "eslint": "^8.20.0",
+    "xvfb": "^0.4.0"
+  }
+}
