@@ -69,18 +69,18 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
           .popup()
           .find('input#email')
           .clear()
-          .type(email)
+          .type(email,{force:true})
         // Click on the button in case it's a 2-step flow
         cy.popup()
           .find('button:visible')
           .first()
-          .click()
+          .click({force:true})
         cy.popup()
           .find('input#password')
-          .type(password)
+          .type(password,{force:true})
         cy.popup()
           .find('button#btnLogin')
-          .click()
+          .click({force:true})
       }
     })
   cy
