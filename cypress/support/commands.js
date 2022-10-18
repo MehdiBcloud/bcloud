@@ -77,7 +77,6 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
           .click()
         cy.popup()
           .find('input#password')
-          .clear()
           .type(password)
         cy.popup()
           .find('button#btnLogin')
