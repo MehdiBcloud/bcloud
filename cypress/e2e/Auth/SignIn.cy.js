@@ -15,9 +15,11 @@ describe('Bcloud Login Test', () => {
     it('Login',()=>{
         cy.wait(500)
         cy.get('#menua').click()
-        cy.BcloudLogin({email:'mehdi.mehdi@gmail.com', password:'mehdi17112002'})
+        cy.wait(3000)
+        cy.get('.btn-google').click({force:true})
+        // cy.BcloudLogin({email:'mehdi.mehdi@gmail.com', password:'mehdi17112002'})
     })
-    it("Login successfully",()=>{
+    it.skip("Login successfully",()=>{
         cy.wait(500)
         cy.contains("mehdi").should('exist')
     })
