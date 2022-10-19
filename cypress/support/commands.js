@@ -51,17 +51,16 @@ Cypress.Commands.add('popup', () => {
 })
 
 //Paypal Sandbox
-Cypress.Commands.add('paypalFlow', (email, password) => {
-  // Enable popup capture
+Cypress.Commands.add('paypalFlow', () => {
   cy.capturePopup()
-  // Click on the PayPal button inside PayPal's iframe
-  cy.get('iframe').PaypalIframe().find('div[data-funding-source="paypal"]').click()
-  // It will first inject a loader, wait until it changes to the real content
+  cy.get('iframe').PaypalIframe().find('div[data-funding-source="paypal"]').first().click()
   cy
     .popup()
     .find('div')
     .should('not.exist')
-    .wait(1000) // Not recommended, but the only way I found to wait for the real content
+})
+Cypress.Commands.add('PaypalCredentials', (email, password) => {
+  cy.wait(1000)
   cy
     .popup()
     .then($body => {
@@ -77,97 +76,44 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
           .find('button:visible')
           .first()
           .click({force:true})
+        cy.wait(5000)
         cy.popup()
           .find('input#password')
           .type(password,{force:true})
         cy.popup()
           .find('button#btnLogin')
+          .should('exist')
           .click({force:true})
       }
     })
 })
 Cypress.Commands.add('SubmitPaypalFlow', () => {
-  cy
-      .popup()
-      .find('button#btnLogin')
-      .should('not.exist')
-  cy
-      .popup()
-      .find('button[data-testid=submit-button-initial]')
-      .should('exist')
-      .click({force:true})
-})
-
-
-Cypress.Commands.add('paypalCreditCard', () => {
-  const PaypalInfos = require('../fixtures/Credit card (PayPal).json');
-  const dataAddress = require('../fixtures/Address.json');
-  // Enable popup capture
-  cy.capturePopup()
-  // Click on the PayPal button inside PayPal's iframe
-  cy.get('iframe').PaypalIframe().find('div[data-funding-source="card"]').click()
-  // It will first inject a loader, wait until it changes to the real content
+  cy.wait(5000)
   cy
     .popup()
-    .find('div')
-    .should('not.exist')
-    .wait(10000) // Not recommended, but the only way I found to wait for the real content
-  cy
-    .popup()
-    .then($body => {
-      // Check if we need to sign in
-      if ($body.find('input#cardNumber').length) {
-        cy
-          .popup()
-          .find('input#cardNumber')    
-          .type(PaypalInfos.CardNumber,{force:true})
-        cy
-          .popup()
-          .find('input#cardExpiry')    
-          .type(PaypalInfos.ExpirationDate,{force:true})
-        cy
-          .popup()
-          .find('input#cardCvv')    
-          .type(PaypalInfos.Cvv,{force:true})
-        cy
-          .popup()
-          .find('input#firstName')    
-          .type(dataAddress.firstName,{force:true})
-        cy
-          .popup()
-          .find('input#lastName')  
-          .type(dataAddress.lastName,{force:true})
-        cy
-          .popup()
-          .find('input#billingLine1')    
-          .type(dataAddress.address,{force:true})
-        cy
-          .popup()
-          .find('input#billingCity')    
-          .type(dataAddress.city+"/"+dataAddress.town+"/"+dataAddress.village,{force:true})
-        cy
-          .popup()
-          .find('input#phone')    
-          .type(dataAddress.phone,{force:true})
-        cy
-          .popup()
-          .find('input#email')    
-          .type(dataAddress.email,{force:true})
-        cy
-          .popup()
-          .find('input#onboardOptionGuest')
-          .check({force:true})
-        cy
-          .popup()
-          .find('input#guestAgreeToTerms')
-          .check({force:true})
-      }
-    })
-  cy
-    .popup()
-    .find('div[data-testid="submit-button"] >button')
+    .find('button#payment-submit-btn')
+    .should('exist')
     .click({force:true})
 })
+
+//Paypal Credit Card
+Cypress.Commands.add('paypalCreditCardForm', () => {
+  cy.get('iframe').PaypalIframe().find('div[data-funding-source="card"]').first().click()
+})
+Cypress.Commands.add('CreditCardCredentials',(name,info)=>{
+  cy
+    .get('iframe').PaypalIframe()
+    .find('div#card-fields-container').find('>div >iframe').eq(0).PaypalIframe()
+    .find('input[name="'+name+'"]').type(info,{force:true})
+})
+Cypress.Commands.add('SubmitPaypalCreditCard',()=>{
+  cy
+    .get('iframe').PaypalIframe()
+    .find('div#card-fields-container').find('>div >iframe').eq(0).PaypalIframe()
+    .find('button#submit-button').click({force:true})
+})
+
+//Payzone
 Cypress.Commands.add('CreditCard', () => {
   cy.wait(500)
   cy.iframe('#c2pIframe').find('input[value="Submit to TermURL >>"]').should('be.visible').click()

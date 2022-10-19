@@ -26,22 +26,22 @@ describe('Paypal credit card', () => {
         cy.get('[name=emailLogin]').type(dataLogin.email)
         cy.get('[name=passwordLogin]').type(dataLogin.pass+'{enter}', {sensitive: true})
     })
-    it('Certif agile scrum',()=>{
+    it('Certif Agile Scrum',()=>{
         cy.wait(1000)
         cy.get('#nav >li >span >i').eq(1).trigger('mouseover',{force: true})
         cy.get('[data-testid=certifications-methode-agile-scrum]').trigger('mouseover',{force: true})
         cy.get('[data-testid="certification-professional-scrum-master-I"]').click({force:true})
     })
-    it('Add to cart',()=>{
+    it('Add to Cart',()=>{
         cy.wait(500)
         cy.get('[data-testid=addToCart]').click()
         cy.get('[data-testid=continueShopping]').click()
     })
-    it('Go to cart',()=>{
+    it('Go to Cart',()=>{
         cy.wait(500)
         cy.get('[data-testid=cart]').click({force:true})
     })
-    it('Confirm purchase',()=>{
+    it('Confirm Purchase',()=>{
         cy.wait(500)
         cy.get('[data-testid=PayOrder]').click()
     })
@@ -49,8 +49,33 @@ describe('Paypal credit card', () => {
         cy.wait(500)
         cy.get("#vertical-tab-1").click({force:true})
     })
-    it('Paypal credit card infos',()=>{
-        cy.paypalCreditCard()
+    it('Sandbox Paypal Credit Card',()=>{
+        cy.wait(3000)
+        cy.paypalCreditCardForm()
+    })
+    it('Credit Card Credentials',()=>{
+        const PaypalInfos = require('../../fixtures/Credit card (PayPal).json');
+        const dataAddress = require('../../fixtures/Address.json');
+        cy.wait(5000)
+        
+        cy
+        .get('iframe').PaypalIframe()
+        .find('div#card-fields-container').find('>div >iframe').eq(0).PaypalIframe()
+        .find('.country').select('MA',{force:true})
+
+        cy.CreditCardCredentials('cardnumber',PaypalInfos.CardNumber)
+        cy.CreditCardCredentials('expiry-date',PaypalInfos.ExpirationDate)
+        cy.CreditCardCredentials('credit-card-security',PaypalInfos.Cvv)
+        cy.CreditCardCredentials('givenName',dataAddress.firstName)
+        cy.CreditCardCredentials('familyName',dataAddress.lastName)
+        cy.CreditCardCredentials('line1',dataAddress.address)
+        cy.CreditCardCredentials('postcode',dataAddress.zip)
+        cy.CreditCardCredentials('city',dataAddress.city+"/"+dataAddress.town+"/"+dataAddress.village)
+        cy.CreditCardCredentials('phone',dataAddress.phone)
+        cy.CreditCardCredentials('email',dataAddress.email)
+    })
+    it('Submit Payment',()=>{
+        cy.SubmitPaypalCreditCard()
     })
     it('Back Home',()=>{
         cy.wait(5000)

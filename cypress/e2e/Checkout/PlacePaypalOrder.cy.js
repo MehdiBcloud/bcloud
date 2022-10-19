@@ -29,41 +29,44 @@ describe('paypal order', () => {
         cy.get('[name=passwordLogin]').type(dataLogin.pass+'{enter}', {sensitive: true})
     })
 
-    it('Certif agile scrum',()=>{
+    it('Certif Agile Scrum',()=>{
         cy.wait(1000)
         cy.get('#nav >li >span >i').eq(1).trigger('mouseover',{force: true})
         cy.get('[data-testid=certifications-methode-agile-scrum]').trigger('mouseover',{force: true})
         cy.get('[data-testid="certification-professional-scrum-master-I"]').click({force:true})
     })
 
-    it('Add to cart',()=>{
+    it('Add to Cart',()=>{
         cy.wait(500)
         cy.get('[data-testid=addToCart]').click()
         cy.get('[data-testid=continueShopping]').click()
     })
 
-    it('Go to cart',()=>{
+    it('Go to Cart',()=>{
         cy.wait(500)
         cy.get('[data-testid=cart]').click({force:true})
     })
 
-    it('Confirm purchase',()=>{
+    it('Confirm Purchase',()=>{
         cy.wait(500)
         cy.get('[data-testid=PayOrder]').click()
     })
 
-    it('Select paypal option',()=>{
+    it('Select Paypal Option',()=>{
         cy.wait(500)
         cy.get("#vertical-tab-1").click({force:true})
     })
 
-    it('Paypal sandbox account',()=>{
-        cy.paypalFlow(PaypalInfos.email,PaypalInfos.password)  
+    it('Paypal Sandbox',()=>{
+        cy.paypalFlow()  
+    })
+
+    it('Paypal Credentials',()=>{
+        cy.PaypalCredentials(PaypalInfos.email,PaypalInfos.password)  
     })
 
     it('Submit Payment',()=>{
-        cy.wait(10000)
-        cy.SubmitPaypalFlow() 
+        cy.SubmitPaypalFlow()
     })
 
     it('Back Home',()=>{
