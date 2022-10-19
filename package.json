@@ -9,8 +9,8 @@
     "e2e": "cypress run --headless",
     "jira:chrome": "cypress run --headless --browser chrome",
     "paypalcreditcard": "cypress run --browser electron --spec cypress/e2e/Checkout/PaypalCreditCard.cy.js",
-    "payzone": "cypress run --browser chrome --spec cypress/e2e/Checkout/Payzone.cy.js",
-    "placepaypalorder": "cypress run --browser chrome --spec cypress/e2e/Checkout/PlacePaypalOrder.cy.js"
+    "payzone": "cypress run --browser electron --spec cypress/e2e/Checkout/Payzone.cy.js",
+    "placepaypalorder": "cypress run --browser edge --spec cypress/e2e/Checkout/PlacePaypalOrder.cy.js"
   },
   "repository": {
     "type": "git",
