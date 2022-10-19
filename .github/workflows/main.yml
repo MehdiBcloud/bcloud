@@ -26,10 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.4.2
 
-      - name: Paypal Order Sandbox
-        uses: cypress-io/github-action@v4.2.0
-        with:
-          command: npm run placepaypalorder
+      # - name: Paypal Order Sandbox
+      #   uses: cypress-io/github-action@v4.2.0
+      #   with:
+      #     command: npm run placepaypalorder
 
       - name: Paypal Credit Card Sandbox
         uses: cypress-io/github-action@v4.2.0
