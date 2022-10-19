@@ -88,7 +88,7 @@ Cypress.Commands.add('PaypalCredentials', (email, password) => {
     })
 })
 Cypress.Commands.add('SubmitPaypalFlow', () => {
-  cy.wait(5000)
+  cy.wait(10000)
   cy
     .popup()
     .find('button#payment-submit-btn')
