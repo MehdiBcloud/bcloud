@@ -86,12 +86,6 @@ Cypress.Commands.add('PaypalCredentials', (email, password) => {
           .click({force:true})
       }
     })
-    cy.wait(10000)
-    cy
-      .popup()
-      .find('button#payment-submit-btn')
-      .should('exist')
-      .click({force:true})
 })
 Cypress.Commands.add('SubmitPaypalFlow', () => {
   cy.wait(10000)
