@@ -57,9 +57,6 @@ describe('paypal order', () => {
     it('Paypal Credentials',()=>{
         cy.PaypalCredentials(PaypalInfos.email,PaypalInfos.password)  
     })
-    it('Submit Payment',()=>{
-        cy.SubmitPaypalFlow()
-    })
     it('Back Home',()=>{
         cy.wait(500)
         cy.contains('Votre commande a été confirmée.',{timeout:30000}).should('be.visible')
